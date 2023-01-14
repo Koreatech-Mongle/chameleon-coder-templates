@@ -1,7 +1,5 @@
 FROM ubuntu:22.10
 
-SHELL ["/bin/bash", "-c"]
-
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes \
     bash \
