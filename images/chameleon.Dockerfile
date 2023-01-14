@@ -1,7 +1,9 @@
 # From the base image (built on Docker host)
 FROM coder-base:v0.1
 
-RUN chown -R /usr/src coder
+USER root
+RUN chown -R coder /usr/src
+
 USER coder
 WORKDIR /usr/src
 RUN git clone https://github.com/Koreatech-Mongle/chameleon-platform -b develop && \
