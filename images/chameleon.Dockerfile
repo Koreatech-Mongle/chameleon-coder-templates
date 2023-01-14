@@ -7,8 +7,6 @@ RUN git clone https://github.com/Koreatech-Mongle/chameleon-platform -b develop 
     git clone https://github.com/Koreatech-Mongle/chameleon-client -b develop && \
     git clone https://github.com/Koreatech-Mongle/chameleon-controller -b develop
 
-RUN echo $NVM_DIR
-RUN ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/npm" "/usr/local/bin/npm"
 WORKDIR /usr/src/chameleon-platform
 RUN npm install
 WORKDIR /usr/src/chameleon-client

@@ -1,6 +1,6 @@
 FROM ubuntu:22.10
 
-SHELL ["/bin/bash", "-c"]
+SHELL ["/bin/bash", "--login", "-c"]
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes \
