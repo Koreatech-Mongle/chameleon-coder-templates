@@ -23,8 +23,8 @@ RUN apt-get update && \
     mysql-client \
     tzdata \
     nginx \
-    php \
-    php-fpm8.1 \
+    php8.1 \
+    php8.1-fpm \
     wget && \
     # Install latest Git using their official PPA
     add-apt-repository ppa:git-core/ppa && \
