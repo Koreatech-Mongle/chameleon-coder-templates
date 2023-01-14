@@ -20,7 +20,7 @@ RUN apt-get update && \
     nano \
     tar \
     mariadb-server \
-    mysql-client \
+    mariadb-client \
     tzdata \
     nginx \
     php8.1 \
