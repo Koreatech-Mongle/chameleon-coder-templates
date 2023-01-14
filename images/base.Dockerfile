@@ -18,12 +18,13 @@ RUN apt-get update && \
     unzip tar \
     vim nano \
     mariadb-server mariadb-client \
-    php8.1 php8.1-fpm php8.1-cgi php8.1-mysqli php8.1-mbstring php8.1-common php8.1-mysql php-phpseclib php-pear \
     tzdata nginx \
     wget curl && \
     # Install latest Git using their official PPA
     add-apt-repository ppa:git-core/ppa && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
+    DEBIAN_FRONTEND="noninteractive" apt-get install --yes git && \
+    add-apt-repository ppa:ondrej/php && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install --yes php8.1 php8.1-fpm php8.1-cgi php8.1-mysqli php8.1-mbstring php8.1-common php8.1-mysql php-phpseclib php-pear
 
 # Install Node.JS & Global dependencies
 RUN mkdir -p /usr/local/nvm
