@@ -77,4 +77,4 @@ RUN useradd coder \
 
 USER coder
 
-CMD ["/bin/sh" , "/usr/sbin/entrypoint"]
+#CMD ["/bin/sh" , "/usr/sbin/entrypoint"]
