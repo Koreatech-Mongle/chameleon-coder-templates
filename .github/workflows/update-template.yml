@@ -1,0 +1,21 @@
+name: Update template
+on: [push]
+jobs:
+  update_template:
+    name: Update template
+    runs-on: Ubuntu 22.04
+    steps:
+      - env:
+          CODER_TOKEN: ${{ secrets.CODER_TOKEN }}
+          CODER_SERVER: ${{ secrets.CODER_SERVER }}
+      - name: Get latest code
+        uses: actions/checkout@v2
+
+      - name: Install coder
+        run: curl -fsSL https://coder.com/install.sh | sh
+
+      - name: Login coder
+        run: coder --token $CODER_TOKEN login $CODER_SERVER
+
+      - name: Update template
+        run: coder template push chameleon-environments -y
