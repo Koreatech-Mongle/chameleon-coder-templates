@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.10
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes \
@@ -17,10 +17,36 @@ RUN apt-get update && \
     systemd-sysv \
     unzip \
     vim \
+    nano \
+    tar \
+    mariadb-server \
+    mysql-client \
+    tzdata \
+    nginx \
+    php \
+    php-fpm8.1 \
     wget && \
     # Install latest Git using their official PPA
     add-apt-repository ppa:git-core/ppa && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+WORKDIR /etc/jetbrains
+
+RUN wget -O idea.tar.gz https://download.jetbrains.com/idea/ideaIU-2022.3.1.tar.gz && \
+    tar -xzvf idea.tar.gz && \
+    rm idea.tar.gz && \
+    sh $(find ./ -maxdepth 1 -name "idea*")/bin/remote-dev-server.sh registerBackendLocationForGateway
+
+RUN wget -O webstorm.tar.gz https://download.jetbrains.com/webstorm/WebStorm-2022.3.1.tar.gz && \
+    tar -xzvf webstorm.tar.gz && \
+    rm webstorm.tar.gz && \
+    sh $(find ./ -maxdepth 1 -name "Web*")/bin/remote-dev-server.sh registerBackendLocationForGateway
+
+WORKDIR /var/www
+RUN wget -O phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.zip && \
+    unzip phpmyadmin.zip
 
 # Add a user `coder` so that you're not developing as the `root` user
 RUN useradd coder \
