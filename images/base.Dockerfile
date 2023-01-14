@@ -1,6 +1,6 @@
 FROM ubuntu:22.10
 
-SHELL ["/bin/bash", "--login", "-c"]
+SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes \
@@ -28,19 +28,16 @@ RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
 
 # Install Node.JS & Global dependencies
+RUN mkdir -p /usr/local/nvm
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION v18.12.1
 
-# Install nvm with node and npm
-RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
-    && source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION"
 
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-
+ENV NODE_PATH $NVM_DIR/versions/node/$NODE_VERSION/bin
+ENV PATH $NODE_PATH:$PATH
+RUN npm install -g yarn http-server
 
 # Set tzdata for php
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
