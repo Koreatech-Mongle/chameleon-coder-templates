@@ -1,7 +1,6 @@
 # From the base image (built on Docker host)
 FROM coder-base:v0.1
 
-USER root
 RUN chown -R coder /usr/src
 
 WORKDIR /usr/src

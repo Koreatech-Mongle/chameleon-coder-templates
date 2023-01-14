@@ -59,5 +59,3 @@ RUN printf "#!/bin/sh" >> /usr/sbin/startup.sh && \
     printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nsh /usr/sbin/startup.sh\ntail -f /dev/null" >> /usr/sbin/entrypoint
 
 CMD ["/bin/sh" , "/usr/sbin/entrypoint"]
-
-USER coder
