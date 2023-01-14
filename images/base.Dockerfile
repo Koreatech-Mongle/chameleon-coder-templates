@@ -28,7 +28,7 @@ RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
 
 # Install Node.JS
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && source ~/.bashrc && nvm install v18.12.1
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && source ~/.bashrc && source ~/.nvm/nvm.sh && nvm install v18.12.1
 
 # Set MySQL password
 # RUN mariadb -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; flush privileges;"
