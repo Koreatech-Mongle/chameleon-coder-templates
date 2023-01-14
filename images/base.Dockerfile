@@ -1,5 +1,7 @@
 FROM ubuntu:22.10
 
+SHELL ["/bin/bash", "-c"]
+
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes \
     bash \
@@ -12,7 +14,6 @@ RUN apt-get update && \
     python3-pip \
     software-properties-common \
     sudo \
-    source \
     systemd \
     systemd-sysv \
     tmux \
