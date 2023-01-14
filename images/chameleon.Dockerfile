@@ -4,7 +4,8 @@ FROM coder-base:v0.1
 WORKDIR /usr/src
 RUN git clone https://github.com/Koreatech-Mongle/chameleon-platform -b develop && \
     git clone https://github.com/Koreatech-Mongle/chameleon-client -b develop && \
-    git clone https://github.com/Koreatech-Mongle/chameleon-controller -b develop
+    git clone https://github.com/Koreatech-Mongle/chameleon-controller -b develop && \
+    git clone https://github.com/Koreatech-Mongle/model-executor
 
 WORKDIR /usr/src/chameleon-platform
 RUN npm install
