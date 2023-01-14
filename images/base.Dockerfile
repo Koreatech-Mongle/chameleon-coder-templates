@@ -26,6 +26,9 @@ RUN apt-get update && \
     add-apt-repository ppa:ondrej/php && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes php8.1 php8.1-fpm php8.1-cgi php8.1-mysqli php8.1-mbstring php8.1-common php8.1-mysql php-phpseclib php-pear
 
+# Set locales
+RUN locale-gen en_US.UTF-8
+
 # Install Node.JS & Global dependencies
 RUN mkdir -p /usr/local/nvm
 ENV NVM_DIR /usr/local/nvm

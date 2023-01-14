@@ -37,7 +37,7 @@ resource "coder_app" "code-server" {
   agent_id     = coder_agent.main.id
   slug         = "code-server"
   display_name = "code-server"
-  url          = "http://localhost:13337/?folder=/home/coder"
+  url          = "http://localhost:13337/?folder=/usr/src"
   icon         = "/icon/code.svg"
   subdomain    = false
   share        = "owner"
@@ -122,7 +122,7 @@ resource "docker_container" "workspace" {
     ip   = "host-gateway"
   }
   volumes {
-    container_path = "/home/coder/"
+    container_path = "/usr/src/"
     volume_name    = docker_volume.home_volume.name
     read_only      = false
   }
