@@ -12,6 +12,7 @@ RUN apt-get update && \
     python3-pip \
     software-properties-common \
     sudo \
+    source \
     systemd \
     systemd-sysv \
     tmux \
