@@ -164,4 +164,4 @@ add the following features to your Coder template:
 - Custom container spec
 - More
 
-We also welcome all contributions!
+We also welcome all contributions.
