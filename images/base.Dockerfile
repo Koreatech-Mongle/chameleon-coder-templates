@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.10
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes \
@@ -23,8 +23,7 @@ RUN apt-get update && \
     # Install latest Git using their official PPA
     add-apt-repository ppa:git-core/ppa && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes git && \
-    add-apt-repository ppa:ondrej/php && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install --yes php8.1 php8.1-fpm php8.1-cgi php8.1-mysqli php8.1-mbstring php8.1-common php8.1-mysql php-phpseclib php-pear
+    php8.1 php8.1-fpm php8.1-cgi php8.1-mysqli php8.1-mbstring php8.1-common php8.1-mysql php-phpseclib php-pear
 
 # Set locales
 RUN locale-gen en_US.UTF-8
@@ -68,5 +67,7 @@ RUN rm /etc/nginx/sites-enabled/default && \
 # Entrypoint script
 RUN printf "#!/bin/sh" >> /usr/sbin/startup.sh && \
     printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nsh /usr/sbin/startup.sh\ntail -f /dev/null" >> /usr/sbin/entrypoint
+
+RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
 
 CMD ["/bin/sh" , "/usr/sbin/entrypoint"]
