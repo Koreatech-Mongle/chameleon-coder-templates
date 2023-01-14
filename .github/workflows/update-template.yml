@@ -3,7 +3,7 @@ on: [push]
 jobs:
   update_template:
     name: Update template
-    runs-on: Ubuntu 22.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Get latest code
         uses: actions/checkout@v2
