@@ -29,6 +29,7 @@ RUN apt-get update && \
 
 # Install Node.JS
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && source ~/.bashrc && source ~/.nvm/nvm.sh && nvm install v18.12.1
+RUN npm install -g http-server yarn
 
 # Set tzdata for php
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
@@ -63,7 +64,8 @@ RUN useradd coder \
     echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
 
 # Entrypoint script
-RUN printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\n\n\n\n\ntail -f /dev/null" >> /usr/sbin/entrypoint
+RUN printf "#!/bin/sh" >> /usr/sbin/startup.sh && \
+    printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nsh /usr/sbin/startup.sh\ntail -f /dev/null" >> /usr/sbin/entrypoint
 
 CMD ["/bin/sh" , "/usr/sbin/entrypoint"]
 
