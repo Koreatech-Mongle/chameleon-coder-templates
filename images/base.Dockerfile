@@ -26,7 +26,7 @@ RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
 
 # Set MySQL password
-RUN mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; flush privileges;"
+RUN mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; flush privileges;"
 
 # Set tzdata for php
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
