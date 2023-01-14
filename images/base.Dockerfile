@@ -25,6 +25,9 @@ RUN apt-get update && \
     add-apt-repository ppa:git-core/ppa && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
 
+# Install Node.JS
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && source ~/.bashrc && nvm install v18.12.1
+
 # Set MySQL password
 # RUN mariadb -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; flush privileges;"
 
@@ -49,7 +52,7 @@ RUN wget -O phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAd
     unzip phpmyadmin.zip && rm phpmyadmin.zip && mv $(find ./ -maxdepth 1 -name "php*") phpmyadmin
 
 # Nginx setting
-RUN rm /etc/nginx/site-enabled/default && \
+RUN rm /etc/nginx/sites-enabled/default && \
     printf "server {\n listen 80 default_server;\n listen [::]:80 default_server;\n\t\t\n server_name _;\n client_max_body_size 10G;\n\n root /var/www/phpmyadmin;\n index index.php index.html index.htm index.nginx-debian.html;\n\n location / {\n     try_files $uri $uri/ =404;\n }\n\n location ~ .php$ {\n   include snippets/fastcgi-php.conf;\n   fastcgi_pass unix:/run/php/php8.1-fpm.sock;\n }\n\n location ~ /.ht {\n     deny all;\n }\n}" >> /etc/nginx/sites-enabled/phpmyadmin
 
 # Add a user `coder` so that you're not developing as the `root` user
