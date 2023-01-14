@@ -11,4 +11,4 @@ RUN npm install
 WORKDIR /usr/src/chameleon-client
 RUN npm install
 WORKDIR /usr/src/chameleon-controller
-RUN npm install
+# RUN npm install

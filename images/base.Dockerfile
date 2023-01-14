@@ -67,4 +67,12 @@ RUN rm /etc/nginx/sites-enabled/default && \
 RUN printf "#!/bin/sh" >> /usr/sbin/startup.sh && \
     printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nsh /usr/sbin/startup.sh\ntail -f /dev/null" >> /usr/sbin/entrypoint
 
+# Add a user `coder` so that you're not developing as the `root` user
+RUN useradd coder \
+    --create-home \
+    --shell=/bin/bash \
+    --uid=1000 \
+    --user-group && \
+    echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
+
 CMD ["/bin/sh" , "/usr/sbin/entrypoint"]
