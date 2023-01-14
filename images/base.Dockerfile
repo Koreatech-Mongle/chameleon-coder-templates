@@ -28,8 +28,7 @@ RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
 
 # Install Node.JS
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && source ~/.nvm/nvm.sh && nvm install v18.12.1 && source ~/.bashrc
-RUN npm install -g http-server yarn
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && source ~/.nvm/nvm.sh && nvm install v18.12.1 && source ~/.bashrc && npm install -g http-server yarn
 
 # Set tzdata for php
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
