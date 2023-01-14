@@ -75,4 +75,6 @@ RUN useradd coder \
     --user-group && \
     echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
 
+USER coder
+
 CMD ["/bin/sh" , "/usr/sbin/entrypoint"]
