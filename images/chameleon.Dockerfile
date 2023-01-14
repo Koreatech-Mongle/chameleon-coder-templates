@@ -7,9 +7,10 @@ RUN git clone https://github.com/Koreatech-Mongle/chameleon-platform -b develop 
     git clone https://github.com/Koreatech-Mongle/chameleon-client -b develop && \
     git clone https://github.com/Koreatech-Mongle/chameleon-controller -b develop
 
+RUN command -v npm
 WORKDIR /usr/src/chameleon-platform
-RUN /bin/bash -c "npm install"
+RUN npm install
 WORKDIR /usr/src/chameleon-client
-RUN /bin/bash -c "npm install"
+RUN npm install
 WORKDIR /usr/src/chameleon-controller
-RUN /bin/bash -c "npm install"
+RUN npm install
