@@ -56,7 +56,7 @@ RUN wget -O webstorm.tar.gz https://download.jetbrains.com/webstorm/WebStorm-202
     sh $(find ./ -maxdepth 1 -name "Web*")/bin/remote-dev-server.sh registerBackendLocationForGateway
 
 # MariaDB setting
-RUN mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; flush privileges;"
+RUN service mariadb start && mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; flush privileges;"
 
 # PHPMyAdmin setting
 WORKDIR /var/www
