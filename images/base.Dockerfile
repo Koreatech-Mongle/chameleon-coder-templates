@@ -65,8 +65,8 @@ RUN rm /etc/nginx/sites-enabled/default && \
     printf "server {\n listen 80 default_server;\n listen [::]:80 default_server;\n\t\t\n server_name _;\n client_max_body_size 10G;\n\n root /var/www/phpmyadmin;\n index index.php index.html index.htm index.nginx-debian.html;\n\n location / {\n     try_files $uri $uri/ =404;\n }\n\n location ~ .php$ {\n   include snippets/fastcgi-php.conf;\n   fastcgi_pass unix:/run/php/php8.1-fpm.sock;\n }\n\n location ~ /.ht {\n     deny all;\n }\n}" >> /etc/nginx/sites-enabled/phpmyadmin
 
 # Entrypoint script
-RUN printf "#!/bin/sh" >> /usr/sbin/startup.sh && \
-    printf "#!/bin/sh\nprintf \"172.17.0.1\thost.docker.internal\" >> /etc/hosts\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nsh /usr/sbin/startup.sh\ntail -f /dev/null" >> /usr/sbin/entrypoint
+RUN printf "#!/bin/sh" >> /usr/sbin/startup && \
+    printf "#!/bin/sh\nprintf \"172.17.0.1\thost.docker.internal\" >> /etc/hosts\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nsh /usr/sbin/startup\ntail -f /dev/null" >> /usr/sbin/entrypoint
 
 RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
 
