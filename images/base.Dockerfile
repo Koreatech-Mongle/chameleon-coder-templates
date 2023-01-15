@@ -22,7 +22,7 @@ RUN apt-get update && \
     wget curl && \
     # Install latest Git using their official PPA
     add-apt-repository ppa:git-core/ppa && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install --yes git && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install --yes git \
     php8.1 php8.1-fpm php8.1-cgi php8.1-mysqli php8.1-mbstring php8.1-common php8.1-mysql php-phpseclib php-pear
 
 # Set locales
