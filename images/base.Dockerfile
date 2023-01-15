@@ -62,13 +62,14 @@ RUN wget -O phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAd
 
 # Nginx setting
 RUN rm /etc/nginx/sites-enabled/default && \
-    printf '"server {\\n listen 80 default_server;\\n listen [::]:80 default_server;\\n\\n server_name _;\\n client_max_body_size 10G;\\n\\n root /var/www/phpmyadmin;\\n index index.php index.html index.htm index.nginx-debian.html;\\n\\n location / {\\n   try_files $uri $uri/ /index.php?$query_string;\\n }\\n\\n location ~ .php$ {\\n   include snippets/fastcgi-php.conf;\\n   fastcgi_pass unix:/run/php/php8.1-fpm.sock;\\n }\\n\\n location ~ /.ht {\\n     deny all;\\n }\\n}"' >> /etc/nginx/sites-enabled/phpmyadmin
+    printf "server {\n listen 80 default_server;\n listen [::]:80 default_server;\n\n server_name _;\n client_max_body_size 10G;\n\n root /var/www/phpmyadmin;\n index index.php index.html index.htm index.nginx-debian.html;\n\n location / {\n   try_files \$uri \$uri/ /index.php?\$query_string;\n }\n\n location ~ .\\php$ {\n   include snippets/fastcgi-php.conf;\n   fastcgi_pass unix:/run/php/php8.1-fpm.sock;\n }\n\n location ~ /.ht {\n     deny all;\n }\n}" >> /etc/nginx/sites-enabled/phpmyadmin
 
 # Entrypoint script
 RUN printf "#!/bin/sh" >> /usr/sbin/startup && \
     printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\n/bin/bash /usr/sbin/startup\ntail -f /dev/null" >> /usr/sbin/entrypoint
 
 # Install code server
+WORKDIR /root
 RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
 
 CMD ["/bin/bash" , "/usr/sbin/entrypoint"]
