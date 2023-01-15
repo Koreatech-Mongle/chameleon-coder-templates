@@ -19,11 +19,11 @@ RUN apt-get update && \
     vim nano \
     mariadb-server mariadb-client \
     tzdata nginx \
-    wget curl && \
+    wget curl \
+    php8.1 php8.1-fpm php8.1-cgi php8.1-mysqli php8.1-mbstring php8.1-common php8.1-mysql php-phpseclib php-pear && \
     # Install latest Git using their official PPA
     add-apt-repository ppa:git-core/ppa && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install --yes git \
-    php8.1 php8.1-fpm php8.1-cgi php8.1-mysqli php8.1-mbstring php8.1-common php8.1-mysql php-phpseclib php-pear
+    DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
 
 # Set locales
 RUN locale-gen en_US.UTF-8
