@@ -66,7 +66,7 @@ RUN rm /etc/nginx/sites-enabled/default && \
 
 # Entrypoint script
 RUN printf "#!/bin/sh" >> /usr/sbin/startup.sh && \
-    printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nsh /usr/sbin/startup.sh\ntail -f /dev/null" >> /usr/sbin/entrypoint
+    printf "#!/bin/sh\nprintf \"172.17.0.1\thost.docker.internal\" >> /etc/hosts\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nsh /usr/sbin/startup.sh\ntail -f /dev/null" >> /usr/sbin/entrypoint
 
 RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
 
