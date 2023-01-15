@@ -72,4 +72,4 @@ RUN printf "#!/bin/sh" >> /usr/sbin/startup && \
 WORKDIR /root
 RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
 
-CMD ["/bin/bash" , "/usr/sbin/entrypoint"]
+ENTRYPOINT ["/bin/bash" , "/usr/sbin/entrypoint"]
