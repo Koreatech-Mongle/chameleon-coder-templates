@@ -55,6 +55,9 @@ RUN wget -O webstorm.tar.gz https://download.jetbrains.com/webstorm/WebStorm-202
     rm webstorm.tar.gz && \
     sh $(find ./ -maxdepth 1 -name "Web*")/bin/remote-dev-server.sh registerBackendLocationForGateway
 
+# MariaDB setting
+RUN mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; flush privileges;"
+
 # PHPMyAdmin setting
 WORKDIR /var/www
 RUN wget -O phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.zip && \
