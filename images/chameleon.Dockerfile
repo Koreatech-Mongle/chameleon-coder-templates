@@ -16,6 +16,7 @@ WORKDIR /usr/src/chameleon-controller
 
 WORKDIR /usr/src/model-executor/backend
 RUN npm install
+RUN echo '{"httpPort":5000,"socketExternalHost":"chameleon.best","socketPort":5050,"defaultDockerServer":"mongle","dockerServers":{"mongle":{"host":"host.docker.internal","port":33000}}}' >> config.json
 WORKDIR /usr/src/model-executor/front
 RUN npm install
 WORKDIR /usr/src/model-executor/controller
