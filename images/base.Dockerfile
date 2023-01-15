@@ -66,10 +66,10 @@ RUN rm /etc/nginx/sites-enabled/default && \
 
 # Entrypoint script
 RUN printf "#!/bin/sh" >> /usr/sbin/startup && \
-    printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\n/bin/bash /usr/sbin/startup\ntail -f /dev/null" >> /usr/sbin/entrypoint
+    printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\n/bin/bash /usr/sbin/startup" >> /usr/sbin/entrypoint
 
 # Install code server
 WORKDIR /root
 RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
 
-ENTRYPOINT ["/bin/bash" , "/usr/sbin/entrypoint"]
+CMD ["/bin/bash", "-c" , "/bin/bash /usr/sbin/entrypoint && tail -f /dev/null"]
