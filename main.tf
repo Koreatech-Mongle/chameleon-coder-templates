@@ -28,8 +28,6 @@ resource "coder_agent" "main" {
     #!/bin/bash
     # execute entrypoint script
     /bin/bash /usr/sbin/entrypoint
-    echo ${var.ssh_port} >> /test.txt
-    echo ${var.root_password} >> /test.txt
     # install and start code-server
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
     code-server --auth none --port 13337 | tee code-server-install.log &
@@ -124,6 +122,10 @@ resource "docker_image" "coder_image" {
     path       = "./images/"
     dockerfile = "${var.docker_image}.Dockerfile"
     tag        = ["coder-${var.docker_image}:v0.1"]
+    build_arg  = {
+      ssh_port: var.ssh_port,
+      root_password: var.root_password
+    }
   }
 
   # Keep alive for other workspaces to use upon deletion
