@@ -64,6 +64,9 @@ RUN wget -O webstorm.tar.gz https://download.jetbrains.com/webstorm/WebStorm-202
     sh $(find ./ -maxdepth 1 -name "Web*")/bin/remote-dev-server.sh installPlugins /usr/src 18824-codeglance-pro && \
     sed -i  "s/-Xmx[0-9]\+m/-Xmx8192m/g" $(find $(find ./ -maxdepth 1 -name "Web*")/bin/ -name "*.vmoptions")
 
+# Install coder
+RUN curl -fsSL https://coder.com/install.sh | sh
+
 # Install code server
 WORKDIR /root
 RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
