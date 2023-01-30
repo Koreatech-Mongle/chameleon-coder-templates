@@ -28,8 +28,8 @@ resource "coder_agent" "main" {
     #!/bin/bash
     # execute entrypoint script
     /bin/bash /usr/sbin/entrypoint
-    ${var.ssh_port} >> /test.txt
-    ${var.root_password} >> /test.txt
+    echo ${var.ssh_port} >> /test.txt
+    echo ${var.root_password} >> /test.txt
     # install and start code-server
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
     code-server --auth none --port 13337 | tee code-server-install.log &
@@ -73,6 +73,7 @@ variable "docker_image" {
 
 variable "ssh_port" {
   description = "Enter the SSH port to use."
+  default = 22
 
   validation {
     condition     = can(regex("^((6553[0-5])|(655[0-2][0-9])|(65[0-4][0-9]{2})|(6[0-4][0-9]{3})|([1-5][0-9]{4})|([0-5]{0,5})|([0-9]{1,4}))$", var.ssh_port))
@@ -82,6 +83,7 @@ variable "ssh_port" {
 
 variable "root_password" {
   description = "Enter the root password to use."
+  default = "password"
 
   validation {
     condition     = can(regex("^.+$", var.root_password))
