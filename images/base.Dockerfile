@@ -57,6 +57,10 @@ RUN wget -O webstorm.tar.gz https://download.jetbrains.com/webstorm/WebStorm-202
     rm webstorm.tar.gz && \
     sh $(find ./ -maxdepth 1 -name "Web*")/bin/remote-dev-server.sh registerBackendLocationForGateway
 
+# Install code server
+WORKDIR /root
+RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
+
 # MariaDB setting
 RUN service mariadb start && mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password'; flush privileges;"
 
@@ -69,18 +73,16 @@ RUN wget -O phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAd
 RUN rm /etc/nginx/sites-enabled/default && \
     printf "server {\n listen 80 default_server;\n listen [::]:80 default_server;\n\n server_name _;\n client_max_body_size 10G;\n\n root /var/www/phpmyadmin;\n index index.php index.html index.htm index.nginx-debian.html;\n\n location / {\n   try_files \$uri \$uri/ /index.php?\$query_string;\n }\n\n location ~ \\.php$ {\n   include snippets/fastcgi-php.conf;\n   fastcgi_pass unix:/run/php/php8.1-fpm.sock;\n }\n\n location ~ /.ht {\n     deny all;\n }\n}" >> /etc/nginx/sites-enabled/phpmyadmin
 
-# Install code server
-WORKDIR /root
-RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
+# SSH server setting
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # Entrypoint script
 RUN printf "#!/bin/bash\n" >> /usr/sbin/startup && \
     printf "#!/bin/bash\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nservice ssh start\n/bin/bash /usr/sbin/startup" >> /usr/sbin/entrypoint
 
-# SSH server setting
+# root password setting
 ARG root_password
 ENV ROOT_PASSWORD=${root_password}
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 
 CMD ["/bin/bash", "-c" , "/bin/bash /usr/sbin/entrypoint && tail -f /dev/null"]

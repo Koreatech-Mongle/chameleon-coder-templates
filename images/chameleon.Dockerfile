@@ -1,5 +1,4 @@
 # From the base image (built on Docker host)
-ARG root_password
 FROM coder-base:v0.1
 
 RUN touch /usr/sbin/startup.lock
@@ -23,3 +22,7 @@ RUN echo "cd /usr/src/model-executor/frontend && npm install" >> /usr/sbin/start
 RUN echo "cd /usr/src/model-executor/controller && npm install && npm run pack" >> /usr/sbin/startup
 RUN echo "rm /usr/sbin/startup.lock" >> /usr/sbin/startup
 RUN echo "fi" >> /usr/sbin/startup
+
+ARG root_password
+ENV ROOT_PASSWORD=${root_password}
+RUN echo "root:${ROOT_PASSWORD}" | chpasswd
