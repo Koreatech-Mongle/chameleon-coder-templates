@@ -74,8 +74,8 @@ WORKDIR /root
 RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
 
 # Entrypoint script
-RUN printf "#!/bin/sh\n" >> /usr/sbin/startup && \
-    printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nservice ssh start\n/bin/bash /usr/sbin/startup" >> /usr/sbin/entrypoint
+RUN printf "#!/bin/bash\n" >> /usr/sbin/startup && \
+    printf "#!/bin/bash\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nservice ssh start\n/bin/bash /usr/sbin/startup" >> /usr/sbin/entrypoint
 
 # SSH server setting
 ARG root_password
