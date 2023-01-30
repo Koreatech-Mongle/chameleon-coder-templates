@@ -79,8 +79,8 @@ RUN sed -i "s/#Port 22/Port ${SSH_PORT}/" /etc/ssh/sshd_config
 RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 
 # Entrypoint script
-RUN printf "#!/bin/sh" >> /usr/sbin/startup && \
-    printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nservice sshd start\n/bin/bash /usr/sbin/startup" >> /usr/sbin/entrypoint
+RUN printf "#!/bin/sh\n" >> /usr/sbin/startup && \
+    printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nservice ssh start\n/bin/bash /usr/sbin/startup" >> /usr/sbin/entrypoint
 
 # Install code server
 WORKDIR /root

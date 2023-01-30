@@ -1,4 +1,6 @@
 # From the base image (built on Docker host)
+ARG ssh_port
+ARG root_password
 FROM coder-base:v0.1
 
 WORKDIR /usr/src
