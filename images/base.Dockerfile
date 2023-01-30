@@ -69,21 +69,18 @@ RUN wget -O phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAd
 RUN rm /etc/nginx/sites-enabled/default && \
     printf "server {\n listen 80 default_server;\n listen [::]:80 default_server;\n\n server_name _;\n client_max_body_size 10G;\n\n root /var/www/phpmyadmin;\n index index.php index.html index.htm index.nginx-debian.html;\n\n location / {\n   try_files \$uri \$uri/ /index.php?\$query_string;\n }\n\n location ~ \\.php$ {\n   include snippets/fastcgi-php.conf;\n   fastcgi_pass unix:/run/php/php8.1-fpm.sock;\n }\n\n location ~ /.ht {\n     deny all;\n }\n}" >> /etc/nginx/sites-enabled/phpmyadmin
 
-# SSH server setting
-ARG ssh_port
-ENV SSH_PORT=${ssh_port}
-ARG root_password
-ENV ROOT_PASSWORD=${root_password}
-RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i "s/#Port 22/Port ${SSH_PORT}/" /etc/ssh/sshd_config
-RUN echo "root:${ROOT_PASSWORD}" | chpasswd
+# Install code server
+WORKDIR /root
+RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
 
 # Entrypoint script
 RUN printf "#!/bin/sh\n" >> /usr/sbin/startup && \
     printf "#!/bin/sh\nservice php8.1-fpm start\nservice nginx start\nservice mariadb start\nservice ssh start\n/bin/bash /usr/sbin/startup" >> /usr/sbin/entrypoint
 
-# Install code server
-WORKDIR /root
-RUN curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
+# SSH server setting
+ARG root_password
+ENV ROOT_PASSWORD=${root_password}
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 
 CMD ["/bin/bash", "-c" , "/bin/bash /usr/sbin/entrypoint && tail -f /dev/null"]

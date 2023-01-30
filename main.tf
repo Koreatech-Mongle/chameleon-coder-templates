@@ -151,6 +151,12 @@ resource "docker_container" "workspace" {
     volume_name    = docker_volume.home_volume.name
     read_only      = false
   }
+
+  ports {
+    internal = "22"
+    external = var.ssh_port
+  }
+
   # Add labels in Docker to keep track of orphan resources.
   labels {
     label = "coder.owner"
