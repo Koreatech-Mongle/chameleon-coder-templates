@@ -75,8 +75,8 @@ ENV SSH_PORT=${ssh_port}
 ARG root_password
 ENV ROOT_PASSWORD=${root_password}
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i 's/#Port 22/Port ${SSH_PORT}/' /etc/ssh/sshd_config
-RUN echo 'root:${ROOT_PASSWORD}' | chpasswd
+RUN sed -i "s/#Port 22/Port ${SSH_PORT}/" /etc/ssh/sshd_config
+RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 
 # Entrypoint script
 RUN printf "#!/bin/sh" >> /usr/sbin/startup && \
