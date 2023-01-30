@@ -4,6 +4,7 @@ FROM coder-base:v0.1
 
 RUN touch /usr/sbin/startup.lock
 RUN echo "if [ -f /usr/sbin/startup.lock ]; then" >> /usr/sbin/startup
+RUN echo "cd /usr/src" >> /usr/sbin/startup
 RUN echo "git clone https://github.com/Koreatech-Mongle/chameleon-platform -b develop" >> /usr/sbin/startup
 RUN echo "git clone https://github.com/Koreatech-Mongle/chameleon-client -b develop" >> /usr/sbin/startup
 RUN echo "git clone https://github.com/Koreatech-Mongle/chameleon-controller -b develop" >> /usr/sbin/startup

@@ -27,7 +27,7 @@ resource "coder_agent" "main" {
   startup_script = <<EOT
     #!/bin/bash
     # execute entrypoint script
-    /bin/bash /usr/sbin/entrypoint
+    /bin/bash /usr/sbin/entrypoint > /var/log/entrypoint.log 2>&1
     # install and start code-server
     curl -fsSL https://code-server.dev/install.sh | sh -s -- --version 4.8.3 | tee code-server-install.log
     code-server --auth none --port 13337 | tee code-server-install.log &
