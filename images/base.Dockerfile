@@ -80,7 +80,7 @@ RUN printf "#!/bin/sh\n" >> /usr/sbin/startup && \
 # SSH server setting
 ARG root_password
 ENV ROOT_PASSWORD=${root_password}
-RUN sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 
 CMD ["/bin/bash", "-c" , "/bin/bash /usr/sbin/entrypoint && tail -f /dev/null"]
