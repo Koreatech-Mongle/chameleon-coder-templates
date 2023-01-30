@@ -41,6 +41,9 @@ RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use
 ENV NODE_PATH $NVM_DIR/versions/node/$NODE_VERSION/bin
 ENV PATH $NODE_PATH:$PATH
 RUN npm install -g yarn http-server
+RUN ln -sf $NODE_PATH/node /usr/bin/node
+RUN ln -sf $NODE_PATH/npm /usr/bin/npm
+RUN ln -sf $NODE_PATH/yarn /usr/bin/yarn
 
 # Set tzdata for php
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
