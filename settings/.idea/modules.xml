@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/chameleon-client/chameleon-client.iml" filepath="$PROJECT_DIR$/chameleon-client/chameleon-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chameleon-coder-templates/chameleon-coder-templates.iml" filepath="$PROJECT_DIR$/chameleon-coder-templates/chameleon-coder-templates.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chameleon-controller/chameleon-controller.iml" filepath="$PROJECT_DIR$/chameleon-controller/chameleon-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chameleon-platform/chameleon-platform.iml" filepath="$PROJECT_DIR$/chameleon-platform/chameleon-platform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/model-executor/backend/model-executor-backend.iml" filepath="$PROJECT_DIR$/model-executor/backend/model-executor-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/model-executor/controller/model-executor-controller.iml" filepath="$PROJECT_DIR$/model-executor/controller/model-executor-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/model-executor/frontend/model-executor-frontend.iml" filepath="$PROJECT_DIR$/model-executor/frontend/model-executor-frontend.iml" />
+    </modules>
+  </component>
+</project>
