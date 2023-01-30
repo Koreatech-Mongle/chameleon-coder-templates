@@ -53,12 +53,16 @@ WORKDIR /etc/jetbrains
 RUN wget -O idea.tar.gz https://download.jetbrains.com/idea/ideaIU-2022.3.1.tar.gz && \
     tar -xzvf idea.tar.gz && \
     rm idea.tar.gz && \
-    sh $(find ./ -maxdepth 1 -name "idea*")/bin/remote-dev-server.sh registerBackendLocationForGateway
+    sh $(find ./ -maxdepth 1 -name "idea*")/bin/remote-dev-server.sh registerBackendLocationForGateway && \
+    sh $(find ./ -maxdepth 1 -name "idea*")/bin/remote-dev-server.sh installPlugins /usr/src 18824-codeglance-pro && \
+    sed -i  "s/-Xmx[0-9]\+m/-Xmx8192m/g" $(find $(find ./ -maxdepth 1 -name "idea*")/bin/ -name "*.vmoptions")
 
 RUN wget -O webstorm.tar.gz https://download.jetbrains.com/webstorm/WebStorm-2022.3.1.tar.gz && \
     tar -xzvf webstorm.tar.gz && \
     rm webstorm.tar.gz && \
-    sh $(find ./ -maxdepth 1 -name "Web*")/bin/remote-dev-server.sh registerBackendLocationForGateway
+    sh $(find ./ -maxdepth 1 -name "Web*")/bin/remote-dev-server.sh registerBackendLocationForGateway && \
+    sh $(find ./ -maxdepth 1 -name "Web*")/bin/remote-dev-server.sh installPlugins /usr/src 18824-codeglance-pro && \
+    sed -i  "s/-Xmx[0-9]\+m/-Xmx8192m/g" $(find $(find ./ -maxdepth 1 -name "Web*")/bin/ -name "*.vmoptions")
 
 # Install code server
 WORKDIR /root

@@ -13,6 +13,7 @@ RUN echo "git clone https://github.com/Koreatech-Mongle/model-executor" >> /usr/
 RUN echo "cd /usr/src/chameleon-platform && npm install" >> /usr/sbin/startup
 RUN echo "cd /usr/src/chameleon-client && npm install" >> /usr/sbin/startup
 RUN echo "cd /usr/src/chameleon-controller" >> /usr/sbin/startup
+RUN echo "cd /usr/src/chameleon-coder-templates && cp -r settings/* /usr/src/ && cp -r settings/.idea /usr/src" >> /usr/sbin/startup
 # npm install
 
 RUN echo "cd /usr/src/model-executor/backend && npm install && \\" >> /usr/sbin/startup
